@@ -10,8 +10,7 @@ from sklearn.preprocessing import OneHotEncoder, StandardScaler
 from src.exception import CustomException
 from src.logger import logging
 import os
-
-
+from src.utils import save_object
 @dataclass
 class DataTransformationconfig:
     preprocessor_ob_file_path = os.path.join('artifacts',"preprocessor.pkl")
@@ -22,25 +21,25 @@ class DataTransformation:
 
     def get_data_transfromer_object(self):
         try:
-            numerical_columns = ["writing_score","reading_score"]
+            numerical_columns = ["writing score","reading score"]
             categorical_columns = [
                 "gender",
-                "race_ethinicity"
-                "parental_level_of_education",
+                "race/ethnicity",
+                "parental level of education",
                 "lunch",
-                "test_preparation_course"
+                "test preparation course"
             ]
             num_pipeline = Pipeline(
                 steps=[
                     ("imputer",SimpleImputer(strategy="median")),
-                    ("scalar",StandardScaler())
+                    ("scalar",StandardScaler(with_mean=False))
                 ]
             )
             cat_pipeline = Pipeline(
                 steps=[
                     ("imputer",SimpleImputer(strategy="most_frequent")),
                     ("one_hot_encoder",OneHotEncoder()),
-                    ("scalar",StandardScaler())
+                    ("scalar",StandardScaler(with_mean=False))
                 ]
             )
 
@@ -49,7 +48,7 @@ class DataTransformation:
 
             preprocessor = ColumnTransformer(
                 [
-                    ("num_pipeline",num_pipeline,numerical_columns)
+                    ("num_pipeline",num_pipeline,numerical_columns),
                     ("cat_pipeline",cat_pipeline,categorical_columns)
                 ]
             )
@@ -69,8 +68,8 @@ class DataTransformation:
 
             preprocessing_obj = self.get_data_transfromer_object()
 
-            target_column_name ="math_score"
-            numerical_columns = ["writing_score","reading_score"]
+            target_column_name ="math score"
+            numerical_columns = ["writing score","reading score"]
 
             input_feature_train_df = train_df.drop(columns=[target_column_name],axis=1)
             target_feature_train_df = train_df[target_column_name]
@@ -100,5 +99,5 @@ class DataTransformation:
                 test_arr,
                 self.data_transformation_config.preprocessor_ob_file_path,
             )
-        except:
-            pass
+        except Exception as e:
+            raise CustomException(e,sys)
