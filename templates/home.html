@@ -1,0 +1,286 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Student Exam Performance Predictor ✨</title>
+    <meta name="description" content="Predict your math exam score with AI-powered insights based on your academic profile">
+    
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+            background: linear-gradient(180deg, hsl(250 100% 97%), hsl(280 60% 95%));
+            min-height: 100vh;
+            color: hsl(280 60% 15%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 1rem;
+        }
+
+        .container {
+            width: 100%;
+            max-width: 80rem;
+        }
+
+        .glass-card {
+            background: rgba(255, 255, 255, 0.6);
+            backdrop-filter: blur(40px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            border-radius: 1.5rem;
+            padding: 2rem;
+            box-shadow: 0 8px 32px -8px rgba(70, 20, 100, 0.1);
+        }
+
+        .header {
+            text-align: center;
+            margin-bottom: 0.75rem;
+        }
+
+        .icon-wrapper {
+            display: inline-block;
+            margin-bottom: 0.75rem;
+        }
+
+        .icon-box {
+            width: 3rem;
+            height: 3rem;
+            margin: 0 auto;
+            background: linear-gradient(135deg, hsl(280 80% 60%), hsl(320 75% 55%));
+            border-radius: 1rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 10px 40px -10px hsl(280 80% 60% / 0.4);
+        }
+
+        .icon-box svg {
+            width: 1.5rem;
+            height: 1.5rem;
+            color: white;
+        }
+
+        h1 {
+            font-size: 2.25rem;
+            font-weight: bold;
+            margin-bottom: 0.5rem;
+        }
+
+        .gradient-text {
+            background: linear-gradient(135deg, hsl(280 80% 60%), hsl(320 75% 55%));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .subtitle {
+            color: hsl(280 20% 45%);
+        }
+
+        form {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1rem;
+        }
+
+        .form-group {
+            display: flex;
+            flex-direction: column;
+            gap: 0.375rem;
+        }
+
+        label {
+            font-size: 0.875rem;
+            font-weight: 600;
+        }
+
+        select, input {
+            height: 2.5rem;
+            padding: 0.5rem 0.75rem;
+            background: rgba(255, 255, 255, 0.5);
+            border: 2px solid hsl(280 30% 88%);
+            border-radius: 0.5rem;
+            font-size: 0.875rem;
+            color: hsl(280 60% 15%);
+        }
+
+        select:hover, input:hover,
+        select:focus, input:focus {
+            border-color: hsl(280 80% 60% / 0.5);
+            outline: none;
+        }
+
+        .submit-btn {
+            grid-column: 1 / -1;
+            height: 3rem;
+            margin-top: 0.5rem;
+            background: linear-gradient(135deg, hsl(280 80% 60%), hsl(320 75% 55%));
+            color: white;
+            border: none;
+            border-radius: 0.5rem;
+            font-size: 1rem;
+            font-weight: bold;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.5rem;
+        }
+
+        .result-card {
+            grid-column: 1 / -1;
+            padding: 0.75rem;
+            background: linear-gradient(135deg, hsl(280 80% 60%), hsl(320 75% 55%));
+            border-radius: 1rem;
+            text-align: center;
+            color: white;
+        }
+
+        .result-label {
+            font-size: 0.875rem;
+            margin-bottom: 0.25rem;
+            font-weight: 600;
+            opacity: 0.8;
+        }
+
+        .result-score {
+            font-size: 3rem;
+            font-weight: bold;
+            margin-bottom: 0.25rem;
+        }
+
+        .result-message {
+            font-size: 0.875rem;
+            opacity: 0.9;
+        }
+
+        @media (max-width: 768px) {
+            form {
+                grid-template-columns: 1fr;
+            }
+            
+            h1 {
+                font-size: 1.875rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="glass-card">
+            <div class="header">
+                <div class="icon-wrapper">
+                    <!-- <div class="icon-box">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <path d="m12 3-1.912 5.813a2 2 0 0 1-1.275 1.275L3 12l5.813 1.912a2 2 0 0 1 1.275 1.275L12 21l1.912-5.813a2 2 0 0 1 1.275-1.275L21 12l-5.813-1.912a2 2 0 0 1-1.275-1.275L12 3Z"/>
+                            <path d="M5 3v4"/>
+                            <path d="M19 17v4"/>
+                            <path d="M3 5h4"/>
+                            <path d="M17 19h4"/>
+                        </svg>
+                    </div> -->
+                </div>
+                <h1>
+                    <span class="gradient-text">Predict Your Score</span>
+                </h1>
+                <p class="subtitle">Let's see how you'll do on your math exam! ✨</p>
+            </div>
+
+            <!-- Flask form -->
+            <form action="{{ url_for('predict_datapoint')}}" method="post">
+                <div class="form-group">
+                    <label for="gender">Gender 👤</label>
+                    <select id="gender" name="gender" required>
+                        <option value="" disabled selected>Select your gender</option>
+                        <option value="male">Male</option>
+                        <option value="female">Female</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label for="ethnicity">Race or Ethnicity 🌍</label>
+                    <select id="ethnicity" name="ethnicity" required>
+                        <option value="" disabled selected>Select ethnicity</option>
+                        <option value="group A">Group A</option>
+                        <option value="group B">Group B</option>
+                        <option value="group C">Group C</option>
+                        <option value="group D">Group D</option>
+                        <option value="group E">Group E</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label for="parentalEducation">Parent's Education Level 🎓</label>
+                    <select id="parentalEducation" name="parental_level_of_education" required>
+                        <option value="" disabled selected>Select parent education</option>
+                        <option value="some high school">Some High School</option>
+                        <option value="high school">High School</option>
+                        <option value="some college">Some College</option>
+                        <option value="associate's degree">Associate's Degree</option>
+                        <option value="bachelor's degree">Bachelor's Degree</option>
+                        <option value="master's degree">Master's Degree</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label for="lunch">Lunch Type 🍱</label>
+                    <select id="lunch" name="lunch" required>
+                        <option value="" disabled selected>Select lunch type</option>
+                        <option value="free/reduced">Free/Reduced</option>
+                        <option value="standard">Standard</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label for="testPrep">Test Prep Course 📚</label>
+                    <select id="testPrep" name="test_preparation_course" required>
+                        <option value="" disabled selected>Select test prep status</option>
+                        <option value="none">None</option>
+                        <option value="completed">Completed</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label for="readingScore">Reading Score 📖</label>
+                    <input type="number" id="readingScore" name="reading_score" min="0" max="100" placeholder="0-100" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="writingScore">Writing Score ✍️</label>
+                    <input type="number" id="writingScore" name="writing_score" min="0" max="100" placeholder="0-100" required>
+                </div>
+
+                <button type="submit" class="submit-btn">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <polyline points="22 7 13.5 15.5 8.5 10.5 2 17"/>
+                        <polyline points="16 7 22 7 22 13"/>
+                    </svg>
+                    Predict My Math Score
+                </button>
+
+                {% if results is defined %}
+                <div class="result-card">
+                    <div class="result-label">Your Predicted Math Score</div>
+                    <div class="result-score">{{ results }}</div>
+                    <div class="result-message">
+                        {% if results >= 80 %}
+                            Amazing! 🔥
+                        {% elif results >= 60 %}
+                            Great job! ⭐
+                        {% else %}
+                            Keep studying! 💪
+                        {% endif %}
+                    </div>
+                </div>
+                {% endif %}
+            </form>
+        </div>
+    </div>
+</body>
+</html>
