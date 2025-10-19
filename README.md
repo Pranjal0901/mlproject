@@ -24,32 +24,19 @@ The model is trained using multiple regression algorithms, evaluated, and the be
 
 ## 📂 Project Structure
 MLPROJECT/
-│
-├── .ebextensions/
-├── artifacts/
-├── catboost_info/
-├── logs/
-├── mlproject.egg-info/
-├── notebook/
-├── src/
-│   ├── components/
-│   ├── data_ingestion.py
-│   ├── data_transformation.py
-│   ├── model_trainer.py
-│   ├── pipeline/
-│   ├── predict_pipeline.py
-│   ├── exception.py
-│   ├── logger.py
-│   ├── utils.py
-├── templates/
-│   ├── home.html
-│   ├── index.html
-├── venv/
-├── .gitignore
-├── application.py
-├── README.md
-├── requirements.txt
-├── setup.py
+- artifacts/                ← outputs (trained models, logs, metrics)
+- src/                      ← source code
+  - components/             ← reusable modules (preprocessing, features)
+  - data_ingestion.py
+  - data_transformation.py
+  - model_trainer.py
+  - predict_pipeline.py
+  - logger.py
+  - exception.py
+- notebook/                 ← EDA and experiments
+- templates/                ← web app templates (if any)
+- requirements.txt
+- README.md
 
 
 ## 🛠 Installation & Setup
