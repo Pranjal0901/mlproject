@@ -32,30 +32,25 @@ MLPROJECT/
 ├── mlproject.egg-info/
 ├── notebook/
 ├── src/
-│   ├── __pycache__/
 │   ├── components/
-│   │   ├── __pycache__/
-│   │   ├── __init__.py
-│   │   ├── data_ingestion.py
-│   │   ├── data_transformation.py
-│   │   └── model_trainer.py
+│   ├── data_ingestion.py
+│   ├── data_transformation.py
+│   ├── model_trainer.py
 │   ├── pipeline/
-│   │   ├── __pycache__/
-│   │   ├── __init__.py
-│   │   ├── predict_pipeline.py
-│   │   ├── exception.py
-│   │   ├── logger.py
-│   │   └── utils.py
-│   └── templates/
-│       ├── home.html
-│       └── index.html
-│
+│   ├── predict_pipeline.py
+│   ├── exception.py
+│   ├── logger.py
+│   ├── utils.py
+├── templates/
+│   ├── home.html
+│   ├── index.html
 ├── venv/
 ├── .gitignore
 ├── application.py
 ├── README.md
 ├── requirements.txt
-└── setup.py
+├── setup.py
+
 
 ## 🛠 Installation & Setup
 
